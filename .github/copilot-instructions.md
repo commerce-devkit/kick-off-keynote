@@ -12,13 +12,13 @@
 
 - This repository is a Slidev presentation, not a conventional Vue application. `slides.md` is the active entrypoint for the keynote, and its top-level frontmatter defines the deck-wide defaults such as the `apple-basic` theme, dark color schema, Shiki highlighting, and `mdc: true`.
 - Most of the presentation is authored directly in `slides.md` as Slidev markdown separated by `---` frontmatter blocks. Slides can freely mix markdown with inline HTML/Vue markup; the current deck uses that heavily for layout and inline SVG logo blocks.
-- `components/` is for Vue components that Slidev can use inside markdown slides. `snippets/` is for reusable code fragments that can be embedded into slides with Slidev snippet imports such as `<<< @/snippets/...`.
-- `pages/` is where split-out slide fragments would live when using Slidev's `src:` imports. The current keynote is primarily single-file; `pages/imported-slides.md` is starter-template reference material rather than part of the live deck.
+- `components/` is for Vue components that Slidev can use inside markdown slides when the deck grows beyond inline markup. `snippets/` is for reusable code fragments that can be embedded into slides with Slidev snippet imports such as `<<< @/snippets/...`.
+- `pages/` is available if the keynote is later split with Slidev `src:` imports, but the current deck is intentionally centered on a single `slides.md` entrypoint.
 - Deployment is static. Both `netlify.toml` and `vercel.json` build with `npm run build`, serve `dist/`, and rewrite routes to `index.html`. Netlify pins Node `20`.
 
 ## Key conventions
 
-- Treat `slides.md` as the source of truth for the real presentation. `default-slides.md` is the stock Slidev starter/reference deck and should not be used as the main place for keynote edits.
+- Treat `slides.md` as the source of truth for the real presentation and keep repository-facing docs aligned with that deck instead of the stock Slidev starter wording.
 - Prefer deck-level frontmatter in `slides.md` for shared defaults, then add per-slide overrides with new `---` blocks instead of repeating configuration inline.
 - Follow the existing authoring style of keeping slide-specific layout in markdown with inline HTML and UnoCSS utility classes instead of creating separate styling files for one-off presentation tweaks.
 - The current deck favors embedded SVG/HTML for logos and visual composition directly in slide content. Match that style when updating neighboring slides unless there is a clear reason to extract shared assets or components.
@@ -91,6 +91,8 @@ feat(content): add article on static site performance
 - Use full sentences and paragraphs
 - Write for humans, not machines
 - Include context, tradeoffs, and intent when useful
+- When scripting git commits, use actual newline characters in the body.
+  Never include the literal characters `\n` to fake line breaks.
 
 ---
 
@@ -139,3 +141,6 @@ the authoring experience straightforward for contributors.
 - Prefer multiple small commits over one large commit
 - When generating content, ensure it matches existing tone and structure
 - Do not introduce breaking structural changes without explicit instruction
+- If using `git commit` from the shell, prefer multiple `-m` flags or a
+  real multiline message source so the body is stored with real line
+  breaks.
